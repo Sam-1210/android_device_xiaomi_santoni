@@ -22,15 +22,6 @@ before_install:
   - docker pull fr3akyphantom/droid-builder:focal
 before_script:
   - cd $HOME && mkdir twrp
-  - |
-    docker run --privileged --rm -i -e USER_ID=2000 -e GROUP_ID=2000 -v "$HOME:/home/builder:rw,z" -v "$HOME/.ccache:/srv/ccache:rw" fr3akyphantom/droid-builder:focal bash << EOF
-    cd /home
-    ls -l
-    sudo cd builder
-    sudo chmod 777 builder
-    cd builder
-    exit
-    EOF 
   - TWRP_SOURCE1="https://github.com/PhantomZone54/twrp_sources_norepo/releases/download/v3.5.0_9-20210130/MinimalOmniRecovery-twrp-9.0-norepo-20210130.tzst.aa" && TWRP_SOURCE2="https://github.com/PhantomZone54/twrp_sources_norepo/releases/download/v3.5.0_9-20210130/MinimalOmniRecovery-twrp-9.0-norepo-20210130.tzst.ab" && TWRP_SOURCE3="https://github.com/PhantomZone54/twrp_sources_norepo/releases/download/v3.5.0_9-20210130/MinimalOmniRecovery-twrp-9.0-norepo-20210130.tzst.ac" && TWRP_SOURCE4="https://github.com/PhantomZone54/twrp_sources_norepo/releases/download/v3.5.0_9-20210130/MinimalOmniRecovery-twrp-9.0-norepo-20210130.tzst.ad"
   # Then uncomment below lines to download & extract the multi-part files
   - wget -q --show-progress --progress=bar:force "${TWRP_SOURCE1}" "${TWRP_SOURCE2}" "${TWRP_SOURCE3}" "${TWRP_SOURCE4}"
@@ -45,9 +36,9 @@ script:
     docker run --privileged --rm -i -e USER_ID=$(id -u) -e GROUP_ID=$(id -g) -v "$HOME:/home/builder:rw,z" -v "$HOME/.ccache:/srv/ccache:rw" fr3akyphantom/droid-builder:focal bash << EOF
     cd /home
     ls -l
-    sudo cd builder
     sudo chmod 777 builder
     cd builder
+    ls -l
     cd twrp
     source build/envsetup.sh
     # Choose build flavor as "eng" or "userdebug"
