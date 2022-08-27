@@ -22,6 +22,7 @@ before_install:
   - docker pull fr3akyphantom/droid-builder:focal
 before_script:
   - cd $HOME && mkdir builder
+  - mkdir xx
   - cd builder && mkdir twrp
   - |
     docker run --privileged --rm -i -e USER_ID=$(id -u) -e GROUP_ID=$(id -g) -v "$HOME:/home/builder:rw,z" -v "$HOME/.ccache:/srv/ccache:rw" fr3akyphantom/droid-builder:focal bash << EOF
@@ -46,9 +47,9 @@ script:
     docker run --privileged --rm -i -e USER_ID=$(id -u) -e GROUP_ID=$(id -g) -v "$HOME:/home/builder:rw,z" -v "$HOME/.ccache:/srv/ccache:rw" fr3akyphantom/droid-builder:focal bash << EOF
     cd /home
     ls -l
-    cd /builder
+    cd builder
     ls -l
-    cd /twrp
+    cd twrp
     source build/envsetup.sh
     # Choose build flavor as "eng" or "userdebug"
     BUILD_FLAVOR="eng"
